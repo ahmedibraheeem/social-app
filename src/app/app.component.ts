@@ -27,49 +27,26 @@ export class AppComponent {
   y:number
   a:number
   z:number
-  user() {
-
-    (function () {
-      
-      var old = console.log;
-      var logger = document.getElementById('log');
-      logger.innerHTML=" ";
-      console.log = function (message) {
-          if (typeof message == 'object') {
-              logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-          } else {
-              logger.innerHTML += message + '<br />';
-          }
-        }
-    })();
+  friendsOfFriendsArray: any[] = [];
+  SuggestedFriendsArray: any[] = [];
+  FriendsArray: any[] = [];
+  user:any;
+  GetUser() {
+    this.friendsOfFriendsArray = [];
     if(this.x==undefined|| this.x==null||this.x==0){
       for(var n = 0; n<20; n++)
       {
         if(this.persons[n]["firstName"]==this.name){
           this.x = n + 1;
-          console.log(this.x)
-          console.log("The user:")
-          console.log("");
-          console.log("ID:"+"      "+this.persons[this.x-1]["id"]),
-          console.log("Name:"+"      "+this.persons[this.x-1]["firstName"]+"      "+this.persons[this.x-1]["surname"]),
-          console.log("age:"+"      "+this.persons[this.x-1]["age"]), 
-          console.log("gender:"+"      "+this.persons[this.x-1]["gender"],);
-          console.log("");
-          console.log("");
+          this.user=this.persons[this.x-1]
         }
         
       }
     }
     else
         {
-          console.log("The user:")
-          console.log("");
-          console.log("ID:"+"      "+this.persons[this.x-1]["id"]),
-          console.log("Name:"+"      "+this.persons[this.x-1]["firstName"]+"      "+this.persons[this.x-1]["surname"]),
-          console.log("age:"+"      "+this.persons[this.x-1]["age"]), 
-          console.log("gender:"+"      "+this.persons[this.x-1]["gender"],);
-          console.log("");
-          console.log("");
+          this.user=this.persons[this.x-1]
+
         }
 
   }
@@ -77,20 +54,10 @@ export class AppComponent {
 
   
   friends(){
-    console.log("His Friends:")
-    console.log("");
-    this.a=this.x;
-    while(this.persons[this.x-1]["friends"][this.i]){
-      this.y=this.persons[this.x-1]["friends"][this.i]
-      console.log("ID:"+"      "+this.persons[this.y-1]["id"]),
-      console.log("Name:"+"      "+this.persons[this.y-1]["firstName"]+"      "+this.persons[this.y-1]["surname"]),
-      console.log("age:"+"      "+this.persons[this.y-1]["age"]), 
-      console.log("gender:"+"      "+this.persons[this.y-1]["gender"],);
-      console.log("");
-      console.log("");
-      this.i++;
-      }
-    }
+    for (var f of this.user["friends"]) {
+      this.FriendsArray.push(this.persons[f-1]);
+    }    
+  }
   
   friendsOfFriends(){
     let friends = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
@@ -102,13 +69,10 @@ export class AppComponent {
     console.log("friends of friends\n");
     for(var FOF in friends){
       if(friends[FOF]&& (<any>FOF+1!=this.x)){
-        
-      console.log("ID:"+"      "+this.persons[FOF]["id"]),
-      console.log("Name:"+"      "+this.persons[FOF]["firstName"]+"      "+this.persons[FOF]["surname"]),
-      console.log("age:"+"      "+this.persons[FOF]["age"]), 
-      console.log("gender:"+"      "+this.persons[FOF]["gender"],);
+        this.friendsOfFriendsArray.push(this.persons[FOF]);
       }
     }
+    // console.log(this.friendsOfFreinds);
   }
   
   suggestedFriends(){
@@ -124,11 +88,14 @@ export class AppComponent {
     for(var SF in friends){
       if(friends[SF]>=2 && (<any>SF+1!=this.x))
       {
-      console.log("ID:"+"      "+this.persons[SF]["id"]),
-      console.log("Name:"+"      "+this.persons[SF]["firstName"]+"      "+this.persons[SF]["surname"]),
-      console.log("age:"+"      "+this.persons[SF]["age"]), 
-      console.log("gender:"+"      "+this.persons[SF]["gender"],);
-      }
+        this.SuggestedFriendsArray.push(this.persons[SF]);
+      // console.log("ID:"+"      "+this.persons[SF]["id"]),
+      // console.log("Name:"+"      "+this.persons[SF]["firstName"]+"      "+this.persons[SF]["surname"]),
+      // console.log("age:"+"      "+this.persons[SF]["age"]), 
+      // console.log("gender:"+"      "+this.persons[SF]["gender"],);
+      // console.log("")
+      // console.log("")  
+    }
     }
   }
 

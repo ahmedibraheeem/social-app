@@ -2,25 +2,76 @@
 <div class="modal-header">
   <h2>Search by ID:</h2>
   <input type="number" [value]="x" (input)="x = $event.target.value">
-  <button (click)="user() "  class="btn btn-info">Search</button>
+  <button (click)="GetUser();friends();friendsOfFriends();suggestedFriends(); "  class="btn btn-info">Search</button>
   <h2>Search by name:</h2>
   <input type="text" [value]="name" (input)="name = $event.target.value">
 
 </div>
-<div class="modal-body">
 
+<div *ngIf="user != undefined">
+  <h1>User:</h1>
+<table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+    </tr>
+    <tr>
+      <td>{{user["id"]}}</td>
+      <td>{{user["firstName"] + " " + user["surname"]}}</td>
+      <td>{{user["age"]}}</td>
+      <td>{{user["gender"]}}</td>
+    </tr>
+  </table>
+  <h1>Friends:</h1>
 
-  <h2> Friends Info:</h2>
-  <button (click)= "friends()" class="btn btn-primary" 
-      tooltip="by clicking this button you see the user's information.">friends</button>
+<table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+    </tr>
 
+    <tr *ngFor="let f of FriendsArray">
+      <td>{{f["id"]}}</td>
+      <td>{{f["firstName"] + " " + f["surname"]}}</td>
+      <td>{{f["age"]}}</td>
+      <td>{{f["gender"]}}</td>
+    </tr>
+  </table>
+  <h1>Friends of friends:</h1>
 
-  <h2>Friends of Friends:</h2>
-  <button (click)= "friendsOfFriends()" class="btn btn-primary">FOF</button>
+<table class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Gender</th>
+  </tr>
 
+  <tr *ngFor="let f of friendsOfFriendsArray">
+    <td>{{f["id"]}}</td>
+    <td>{{f["firstName"] + " " + f["surname"]}}</td>
+    <td>{{f["age"]}}</td>
+    <td>{{f["gender"]}}</td>
+  </tr>
+</table>
+<h1>Suggested friends:</h1>
 
-  <h2>Suggested Friends:</h2>
-  <button (click)= suggestedFriends() class="btn btn-primary">Suggested</button>
-
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+      </tr>
+<tr *ngFor="let f of SuggestedFriendsArray">
+    <td>{{f["id"]}}</td>
+    <td>{{f["firstName"] + " " + f["surname"]}}</td>
+    <td>{{f["age"]}}</td>
+    <td>{{f["gender"]}}</td>
+  </tr>
+</table>
 </div>
-<div id="log" class="masthead bg-primary text-white text-center mb-0"></div>
