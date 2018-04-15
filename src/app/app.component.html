@@ -1,0 +1,26 @@
+
+<div class="modal-header">
+  <h2>Search by ID:</h2>
+  <input type="number" [value]="x" (input)="x = $event.target.value">
+  <button (click)="user() "  class="btn btn-info">Search</button>
+  <h2>Search by name:</h2>
+  <input type="text" [value]="name" (input)="name = $event.target.value">
+
+</div>
+<div class="modal-body">
+
+
+  <h2> Friends Info:</h2>
+  <button (click)= "friends()" class="btn btn-primary" 
+      tooltip="by clicking this button you see the user's information.">friends</button>
+
+
+  <h2>Friends of Friends:</h2>
+  <button (click)= "friendsOfFriends()" class="btn btn-primary">FOF</button>
+
+
+  <h2>Suggested Friends:</h2>
+  <button (click)= suggestedFriends() class="btn btn-primary">Suggested</button>
+
+</div>
+<div id="log" class="masthead bg-primary text-white text-center mb-0"></div>
