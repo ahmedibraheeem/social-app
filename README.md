@@ -8,6 +8,12 @@
   
   enter the name/ID and press search.
   
+  then you'll see a table of the user's information 
+  and another table for his friends 
+  and another table for Friends of friends
+  and another table for the suggested friends 
+
+  
   
   
   
