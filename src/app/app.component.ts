@@ -32,6 +32,8 @@ export class AppComponent {
   FriendsArray: any[] = [];
   user:any;
   GetUser() {
+    this.FriendsArray = [];
+    this.SuggestedFriendsArray=[];
     this.friendsOfFriendsArray = [];
     if(this.x==undefined|| this.x==null||this.x==0){
       for(var n = 0; n<20; n++)
@@ -55,7 +57,9 @@ export class AppComponent {
   
   friends(){
     for (var f of this.user["friends"]) {
+      if(this.user["friends"]!=this.user["id"]){
       this.FriendsArray.push(this.persons[f-1]);
+      }
     }    
   }
   
@@ -63,42 +67,34 @@ export class AppComponent {
     let friends = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
     for (var friendID of this.persons[this.x-1]["friends"]) {
       for (var friendOfFriendID of this.persons[<any>friendID - 1]["friends"]) {
+        if(friendOfFriendID!=this.user["id"]){
         friends[<any>friendOfFriendID - 1] = true;
       }
     }
-    console.log("friends of friends\n");
-    for(var FOF in friends){
-      if(friends[FOF]&& (<any>FOF+1!=this.x)){
-        this.friendsOfFriendsArray.push(this.persons[FOF]);
-      }
-    }
-    // console.log(this.friendsOfFreinds);
+
   }
-  
+  for(var FOF in friends){
+    if(friends[FOF]&& (<any>FOF+1!=this.x)){
+      this.friendsOfFriendsArray.push(this.persons[FOF]);
+    }
+  }
+}
   suggestedFriends(){
     let friends =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     for (var friendID of this.persons[this.x-1]["friends"]) {
       for (var friendOfFriendID of this.persons[<any>friendID - 1]["friends"]) {
-        friends[<any>friendOfFriendID - 1]++ ;
+        if(friendOfFriendID!=this.user["id"]){
+          friends[<any>friendOfFriendID - 1]++ ;
       }
     }
-    console.log("Suggested friends\n");
-    console.log("")
-    console.log("")
+
+    }
+
     for(var SF in friends){
       if(friends[SF]>=2 && (<any>SF+1!=this.x))
-      {
-        this.SuggestedFriendsArray.push(this.persons[SF]);
-      // console.log("ID:"+"      "+this.persons[SF]["id"]),
-      // console.log("Name:"+"      "+this.persons[SF]["firstName"]+"      "+this.persons[SF]["surname"]),
-      // console.log("age:"+"      "+this.persons[SF]["age"]), 
-      // console.log("gender:"+"      "+this.persons[SF]["gender"],);
-      // console.log("")
-      // console.log("")  
-    }
-    }
+     {
+       this.SuggestedFriendsArray.push(this.persons[SF]);
+       }
+   }
   }
-
-
 }
-    
